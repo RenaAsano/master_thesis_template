@@ -1,0 +1,112 @@
+\documentclass[a4paper, 11pt, dvipdfmx, titlepage]{jsreport}
+
+\usepackage{amsmath}  % math operator
+\usepackage{hyperref}  % hyper link
+\usepackage{pxjahyper}  % bookmarks
+\usepackage{cleveref}
+
+\usepackage[backend=biber, style=numeric]{biblatex}
+\usepackage{bm}
+\usepackage{braket}  % dirac notation
+\usepackage[dvipdfmx]{graphicx}
+\usepackage[version=4]{mhchem}  % chemical equation
+\usepackage{siunitx}  % SI units
+\usepackage{subcaption}
+\usepackage{subfiles}
+\usepackage{tikz}  % Draw shapes
+
+% page numbering
+\pagestyle{plain}
+
+% hyperref option list
+\hypersetup{
+    setpagesize=false,
+    % bookmarks=true,
+    bookmarkstype=toc,
+    bookmarksnumbered=true,
+    bookmarksopen=false,
+    hidelinks,
+    % colorlinks=false,
+    % linkcolor=blue,
+    % citecolor=red,
+    pdfstartview=FitH,
+    % pdfauthor=,
+    % pdftitle,
+    % pdfsubject=,
+}
+
+% crossreference format
+\crefname{equation}{式}{式}
+\crefname{figure}{図}{図}
+\crefname{table}{表}{表}
+\crefname{chapter}{}{}
+\creflabelformat{chapter}{#2第#1章#3}
+\crefrangelabelformat{equation}{(#3#1#4) から (#5#2#6)}
+\crefrangelabelformat{figure}{(#3#1#4) から (#5#2#6)}
+\crefrangelabelformat{table}{(#3#1#4) から (#5#2#6)}
+
+% bibriography format
+\addbibresource{../references.bib}
+
+% subcaption format
+\captionsetup[subfigure]{labelformat=simple}
+\renewcommand{\thesubfigure}{(\alph{subfigure})}
+
+% title page format
+\title{タイトル}
+\author{著者}
+\newcommand{\header}{千葉大学大学院融合理工学府\\修士論文}
+\newcommand{\department}{所属}
+\newcommand{\submittionyear}{提出年}
+\newcommand{\submittionmonth}{提出月}
+
+\makeatletter
+\renewcommand{\maketitle}{
+  \begin{titlepage}
+    \begin{center}
+      \vspace*{0cm}
+      {\LARGE \header}
+      \vspace{4.5cm} \\
+      {\huge \@title}
+      \vspace{2cm} \\
+      {\LARGE \submittionyear\ 年 \submittionmonth\ 月提出}
+      \vspace{9.0cm}\\
+      {\LARGE \department}
+      \vspace{0.5cm}\\
+      {\huge \@author}
+    \end{center}
+  \end{titlepage}
+}
+\makeatother
+
+\begin{document}
+
+\pagenumbering{roman}
+\maketitle
+
+\newpage
+\thispagestyle{empty}
+\chapter*{論文要旨}
+\input{abstract}
+
+\pagenumbering{roman}
+\setcounter{tocdepth}{3}
+\tableofcontents
+\clearpage
+
+\pagenumbering{arabic}
+
+\subfile{Chapter1/Chapter1.tex}
+\subfile{Chapter2/Chapter2.tex}
+\subfile{Chapter3/Chapter3.tex}
+\subfile{Chapter4/Chapter4.tex}
+
+\clearpage  % 参考文献のページ数を目次に正しく出力するために入れる
+\addcontentsline{toc}{chapter}{参考文献}
+\printbibriography[title={参考文献}]
+
+\chapter*{謝辞}
+\addcontentsline{toc}{chapter}{謝辞}
+\input{acknowledgement}
+
+\end{document}
