@@ -1,0 +1,100 @@
+\documentclass[a4paper,12ptj]{jsarticle}  % 12pt doesn't equal 12ptj
+
+\usepackage{amsmath}  % math operators
+\usepackage[backend=biber, style=numeric, giveninits, maxnames=1, sorting=none]{biblatex}
+\usepackage{bm}
+\usepackage{braket}  % dirac notation
+\usepackage{bxpapersize}
+\usepackage{cleveref}  % cross reference
+\usepackage{color}  % colorize font
+\usepackage[truedimen, margin=25truemm]{geometry}  % mm doesn't equal truemm
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{mhchem}  % chemical equation
+\usepackage{indentfirst}
+\usepackage{setspace}
+\usepackage{siunitx}  % SI units
+\usepackage{subcaption}
+\usepackage{tikz}  % Draw shapes
+\usepackage{titlesec}
+
+% crossreference format
+\crefname{equation}{式}{式}
+\crefname{figure}{図}{図}
+\crefname{table}{表}{表}
+\crefrangelabelformat{equation}{(#3#1#4) から (#5#2#6)}
+\crefrangelabelformat{figure}{(#3#1#4) から (#5#2#6)}
+\crefrangelabelformat{table}{(#3#1#4) から (#5#2#6)}
+
+% bibliography format
+\DefineBibliographyStrings{english}{andothers = {\mkbibemph{et al.}}}
+\DeclareFieldFormat*{volume}{\mkbibbold{#1}} % 巻数を太字にする
+\DeclareFieldFormat*{year}{(#1)}
+\DeclareFieldFormat*{pages}{#1}
+\renewcommand\bibfont{\footnotesize}
+\DeclareBibliographyDriver{article}{%
+  \usebibmacro{author}%
+  \setunit{\addcomma\space}%
+  \usebibmacro{journal}%
+  \setunit{\addcomma\space}%
+  \printfield{volume}%
+  \setunit{\addcomma\space}%
+  \printfield{number}%
+  \setunit{\addcomma\space}%
+  \printfield{pages}%
+  \setunit{\space}%
+  \printfield{year}%
+  \finentry%
+}
+\addbibresource{../references.bib}
+
+% subcaption format
+\captionsetup[subfigure]{labelformat=simple}
+\renewcommand{\thesubfigure}{(\alph{subfigure})}
+\captionsetup[figure]{skip=0pt, font=small}
+
+% font setting（pLaTeX）
+\renewcommand{\kanjifamilydefault}{\mcdefault} % 明朝体
+\renewcommand{\rmdefault}{ptm} % Times Roman
+
+% 段落の頭を1字下げ
+\setlength{\parindent}{1em}
+
+% 行間
+\renewcommand{\baselinestretch}{0.8}
+
+% 墨付き括弧【】の見出し用コマンド
+\newcommand{\kakko}[1]{\textbf{【#1】}}
+
+% 見出しの設定
+\titleformat*{\section}{\normalsize\bfseries}
+\titlespacing*{\section}{0pt}{*0.5}{*0.3} % (左の余白, 上の余白, 下の余白)
+
+% ページ番号を削除
+\pagestyle{empty}
+
+\title{タイトル}
+\author{著者}
+\newcommand{\department}{所属}
+
+\makeatletter
+\renewcommand{\maketitle}{%
+  \begin{flushleft}
+    \begin{minipage}{30truemm}
+      \hspace{1zw}
+    \end{minipage}%
+    \begin{minipage}{0.785\textwidth}
+      {\gtfamily\fontsize{12.8pt}{12.8pt}\selectfont \@title}
+    \end{minipage}
+  \end{flushleft}
+
+  \begin{flushright}
+    {\rmfamily\fontsize{12pt}{12pt}\selectfont \department~~\@author}
+  \end{flushright}
+
+  \vspace{1\baselineskip}
+}
+\makeatother
+
+\begin{document}
+
+\end{document}
