@@ -1,0 +1,97 @@
+\documentclass[aspectratio=169, hyperref={bookmarks=true}, dvipdfmx, 12pt]{beamer}
+
+\usefonttheme{serif}
+\renewcommand{\kanjifamilydefault}{\gtdefault}
+
+
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{pxjahyper}
+\usepackage{cleveref}
+
+\usepackage{adjustbox}
+\usepackage{appendixnumberbeamer}
+\usepackage[japanese]{babel}
+\usepackage[backend=biber, style=authoryear, maxnames=1]{biblatex}
+\usepackage{bm}
+\usepackage{booktabs}
+\usepackage{braket}
+\usepackage{caption}
+\usepackage{csquotes}
+\usepackage[version=4]{mhchem}
+\usepackage{minijs}
+\usepackage{siunitx}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usepackage{xcolor}
+
+% 参照形式のカスタマイズ
+\crefname{equation}{式}{式}
+\crefname{figure}{図}{図}
+\crefname{table}{表}{表}
+\crefrangelabelformat{equation}{(#3#1#4) から (#5#2#6)}
+\crefrangelabelformat{figure}{(#3#1#4) から (#5#2#6)}
+\crefrangelabelformat{table}{(#3#1#4) から (#5#2#6)}
+
+\title{タイトル}
+\author{著者}
+\institute{所属}
+\date{}
+
+\captionsetup[figure]{font=scriptsize}
+
+\DefineBibliographyStrings{english}{
+  andothers = {\mkbibemph{et al.}}
+}
+\DeclareFieldFormat*{volume}{\mkbibbold{#1}} % 巻数を太字にする
+\DeclareFieldFormat*{year}{(#1)}
+\DeclareFieldFormat*{pages}{#1}
+
+% article の引用フォーマット
+\newbibmacro{cite:article}{%
+  \usebibmacro{journal}%
+  \setunit{\addcomma\space}%
+  \printfield{volume}%
+  \setunit{\addcomma\space}%
+  \printfield{pages}%
+  \setunit{\space}%
+  \printfield{year}%
+}
+
+% book の引用フォーマット
+\newbibmacro{cite:book}{%
+  \printfield{author}%
+  \setunit{\addcomma\space}%
+  \printfield{title}%
+  \setunit{\addcomma\space}%
+  \printfield{year}%
+}
+
+\DeclareCiteCommand{\cite}
+{}
+{\iffieldequalstr{entrytype}{article}
+  {\usebibmacro{cite:article}} % article の場合
+  {\usebibmacro{cite:book}}}
+{\multicitedelim}
+{}
+
+\addbibresource{../references.bib}
+
+\newcommand{\tinycite}[1]{{\tiny(\cite{#1}.)}}
+
+\begin{document}
+\section*{表紙}
+
+\begin{frame}
+  \titlepage\
+\end{frame}
+
+\appendix
+
+\end{document}
+
+% https://otoguro.net/home/latex/beamer/
+% https://qiita.com/s417-lama/items/9f332abf55710b4688b5
+% https://gist.github.com/Yarakashi-Kikohshi/8ec83b0925fccfc304862af2350f2f71
+
+% https://tex.stackexchange.com/questions/444393/beamer-metropolis-theme-overfull-vbox-error-on-title-page
